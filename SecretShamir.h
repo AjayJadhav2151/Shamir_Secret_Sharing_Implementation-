@@ -75,7 +75,25 @@ public:
        /* cout << "generate secret from any of " << threshold << " parts.\n";*/
     }
 
-    int reconstructSecret(vector<pair<int, int>>& shares) {
+    int reconstructSecret() {
+        int m;
+        cout << "how many keys you have to reconstruct the secret: ";
+        cin >> m;
+        while (m < threshold)
+        {
+            cout << "Number of shares must be at least " << threshold << ". Please enter again: ";
+            cin >> m;
+        }
+
+        vector<pair<int, int>> shares(m);
+        cout << "Enter the shares (x and y values) one by one:\n";
+        for (int i = 0; i < m; i++) {
+            int x_val, y_val;
+            cout << "Share " << (i + 1) << ": ";
+            cin >> x_val >> y_val;
+            shares[i] = make_pair(x_val, y_val);
+        }
+
         int M = shares.size();
         Fraction result(0, 1);
 
